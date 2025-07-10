@@ -1,4 +1,5 @@
 from robot_sort import sort
+import pytest
 
 def test_sort_standard():
     assert sort(10, 10, 10, 10) == "STANDARD"
@@ -42,3 +43,21 @@ def test_sort_rejected():
     # volume >= 1,000,000 and mass >= 20
     assert sort(149, 149, 149, 20) == "REJECTED"
     assert sort(149, 149, 49, 20) == "REJECTED"
+
+def test_sort_input_validation():
+    with pytest.raises(ValueError):
+        sort(10, 10, 10, 0)
+    with pytest.raises(ValueError):
+        sort(10, 10, 0, 10)
+    with pytest.raises(ValueError):
+        sort(10, 0, 10, 10)
+    with pytest.raises(ValueError):
+        sort(0, 10, 10, 10)
+    with pytest.raises(ValueError):
+        sort(10, 10, 10, -1)
+    with pytest.raises(ValueError):
+        sort(10, 10, -1, 10)
+    with pytest.raises(ValueError):
+        sort(10, -1, 10, 10)
+    with pytest.raises(ValueError):
+        sort(-1, 10, 10, 10)
